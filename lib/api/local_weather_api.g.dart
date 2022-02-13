@@ -51,6 +51,40 @@ class _ApiClient implements ApiClient {
     return value;
   }
 
+  @override
+  Future<DailyWeatherModel> getLocationDailyWeather(lat, lon) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<
+        DailyWeatherModel>(Options(
+            method: 'GET', headers: _headers, extra: _extra)
+        .compose(_dio.options,
+            '/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly&appid=b9a9bf7b2cbf57e02e17f813c16469f9&lang=ru&units=metric',
+            queryParameters: queryParameters, data: _data)
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = DailyWeatherModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<DailyWeatherModel> getNameCityDailyWeather(name) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<
+        DailyWeatherModel>(Options(
+            method: 'GET', headers: _headers, extra: _extra)
+        .compose(_dio.options,
+            '/onecall?q=${name}&exclude=current,minutely,hourly&appid=b9a9bf7b2cbf57e02e17f813c16469f9&lang=ru&units=metric',
+            queryParameters: queryParameters, data: _data)
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = DailyWeatherModel.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

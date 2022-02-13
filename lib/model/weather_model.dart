@@ -173,7 +173,7 @@ class Wind {
 }
 
   Wind.fromJson(dynamic json) {
-    _speed = json['speed'];
+    _speed = json['speed'].toDouble();
     _deg = json['deg'];
     _gust = json['gust'];
   }

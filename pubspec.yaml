@@ -19,6 +19,10 @@ dependencies:
   dio: ^4.0.4
   get: ^4.6.1
   retrofit_generator: ^4.0.1
+  weather_icons: ^3.0.0
+  geolocator: ^8.1.1
+  intl: ^0.17.0
+  sqflite: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -32,3 +36,6 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+  assets:
+    - assets/icons_weather/
+    - assets/background/

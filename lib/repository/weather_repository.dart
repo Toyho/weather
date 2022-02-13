@@ -20,4 +20,12 @@ class WeatherRepository {
   Future<dynamic> getNameCityWeather(String name) async {
     return await ApiClient(Dio()).getNameCityWeather(name);
   }
+
+  Future<dynamic> getLocalDailyWeather(String lat, String lon) async {
+    return await ApiClient(Dio()).getLocationDailyWeather(lat, lon);
+  }
+
+  Future<dynamic> getNameCityDailyWeather(String name) async {
+    return await ApiClient(Dio()).getNameCityDailyWeather(name);
+  }
 }
