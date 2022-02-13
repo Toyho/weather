@@ -255,7 +255,7 @@ class Temp {
 }
 
   Temp.fromJson(dynamic json) {
-    _day = json['day'] as double;
+    _day = json['day'].toDouble();
     _min = json['min'];
     _max = json['max'];
     _night = json['night'];
