@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:sqflite/sqflite.dart';
 import 'package:weather/model/sql_model.dart';
+import 'package:weather/model/weather_model.dart';
 
 abstract class DB {
 

@@ -258,7 +258,7 @@ class Temp {
     _day = json['day'].toDouble();
     _min = json['min'];
     _max = json['max'];
-    _night = json['night'];
+    _night = json['night'].toDouble();
     _eve = json['eve'];
     _morn = json['morn'];
   }

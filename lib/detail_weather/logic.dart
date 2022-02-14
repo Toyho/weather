@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:weather/model/weather_model.dart';
 import 'package:weather/model/daily_weather_model.dart';
+import 'package:weather/model/weather_model.dart';
 import 'package:weather/repository/weather_repository.dart';
 
 import 'state.dart';
@@ -20,7 +20,6 @@ class DetailWeatherLogic extends GetxController {
   Future<void> getNameWeather() async {
     try {
       Position position = await getLocation();
-      // WeatherModel posts = await WeatherRepository().getNameCityWeather("Орел");
       WeatherModel posts = await WeatherRepository().getLocalWeather(position.latitude.toString(), position.longitude.toString());
       state.value.weather = posts;
       state.refresh();
@@ -33,7 +32,6 @@ class DetailWeatherLogic extends GetxController {
   Future<void> getNameDailyWeather() async {
     try {
       Position position = await getLocation();
-      // WeatherModel posts = await WeatherRepository().getNameCityWeather("Орел");
       DailyWeatherModel posts = await WeatherRepository().getLocalDailyWeather(position.latitude.toString(), position.longitude.toString());
       print(posts.daily![1].weather![0].description);
       state.value.dailyWeather = posts;
@@ -61,5 +59,4 @@ class DetailWeatherLogic extends GetxController {
     }
     return await Geolocator.getCurrentPosition();
   }
-
 }
