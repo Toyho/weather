@@ -164,7 +164,7 @@ class DetailWeatherPage extends StatelessWidget {
               ),
             ),
           )
-              : CircularProgressIndicator();
+              : Center(child: CircularProgressIndicator());
         }),
         Obx(() {
           return state.value.dailyWeather != null
@@ -248,7 +248,7 @@ class DetailWeatherPage extends StatelessWidget {
                   );
                 }),
           ])
-              : CircularProgressIndicator();
+              : Center(child: CircularProgressIndicator());
         }),
       ],
     );

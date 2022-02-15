@@ -9,14 +9,4 @@ class DetailWeatherState {
     this.weather,
     this.dailyWeather,
   });
-
-  DetailWeatherState copyWith({
-    WeatherModel? weather,
-    DailyWeatherModel? dailyWeather,
-  }) {
-    return DetailWeatherState(
-      weather: weather ?? this.weather,
-      dailyWeather: dailyWeather ?? this.dailyWeather,
-    );
-  }
 }

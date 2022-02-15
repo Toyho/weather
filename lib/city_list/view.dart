@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:weather/city_list/state.dart';
 import 'package:weather/detail_weather/logic.dart';
 
 import 'logic.dart';
@@ -20,7 +21,7 @@ class CityListScreen extends StatelessWidget {
     return Obx(() {
       return ListView(
         children: [
-          state.value.weather!.isNotEmpty
+          state.value.listCityStatus == ListCityStatus.success
               ? Column(
                   children: [
                     ListView.builder(
@@ -74,7 +75,7 @@ class CityListScreen extends StatelessWidget {
                         }),
                   ],
                 )
-              : CircularProgressIndicator(),
+              : state.value.listCityStatus == ListCityStatus.init ? Center(child: CircularProgressIndicator()) : SizedBox(),
           GestureDetector(
             onTap: () {
               logic.changeSearch();
@@ -97,6 +98,7 @@ class CityListScreen extends StatelessWidget {
                         suffixIcon: IconButton(
                           onPressed: () {
                             logic.addTodoItem(cityName: searchController.text);
+                            searchController.clear();
                           },
                           icon: Icon(Icons.search, color: Colors.white,),
                         ),

@@ -94,7 +94,7 @@ class Daily {
     _temp = json['temp'] != null ? Temp.fromJson(json['temp']) : null;
     _pressure = json['pressure'];
     _humidity = json['humidity'];
-    _windSpeed = json['wind_speed'];
+    _windSpeed = json['wind_speed'].toDouble();
     _windDeg = json['wind_deg'];
     _windGust = json['wind_gust'];
     if (json['weather'] != null) {
@@ -257,7 +257,7 @@ class Temp {
   Temp.fromJson(dynamic json) {
     _day = json['day'].toDouble();
     _min = json['min'];
-    _max = json['max'];
+    _max = json['max'].toDouble();
     _night = json['night'].toDouble();
     _eve = json['eve'];
     _morn = json['morn'];

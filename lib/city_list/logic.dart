@@ -20,13 +20,11 @@ class CityListLogic extends GetxController {
   void onInit() async {
     await _memoizer.runOnce(() async {
       await initDb();
-      await getTodoItems();
     });
+    await getTodoItems();
     super.onInit();
   }
-
-  ////////////////
-
+  
   Future<void> initDb() async {
     await DB.init();
   }
@@ -36,6 +34,7 @@ class CityListLogic extends GetxController {
     final map = _results.map((json) => SQLModel.fromJson(json)).toList();
     if (_results.isEmpty) {
       print("пусто");
+      state.value.listCityStatus = ListCityStatus.empty;
     } else {
       dbInfo = map;
       print(dbInfo);
@@ -44,6 +43,7 @@ class CityListLogic extends GetxController {
           WeatherModel item =
               await WeatherRepository().getNameCityWeather(element.cityName!);
           state.value.weather!.add(item);
+          state.value.listCityStatus = ListCityStatus.success;
           state.refresh();
         });
       } on DioError catch (_) {
@@ -68,6 +68,7 @@ class CityListLogic extends GetxController {
       var qwe = await DB.query("todo_items");
       print(qwe);
       state.value.weather!.add(item);
+      state.value.listCityStatus = ListCityStatus.success;
       state.value.isSearch = false;
       state.refresh();
       update();
@@ -76,19 +77,21 @@ class CityListLogic extends GetxController {
 
   Future<void> deleteTodoItem(WeatherModel city) async {
     SQLModel? itemSQL;
-    var qwe = await DB.query("todo_items");
-    for (var element in qwe) {
+    var db = await DB.query("todo_items");
+    for (var element in db) {
       if (element['cityName'] == city.name) {
         itemSQL = SQLModel.fromJson(element);
       }
     }
     await DB.delete("todo_items", itemSQL!);
+    var dbBeforeDelete = await DB.query("todo_items");
+    if (dbBeforeDelete.isEmpty) {
+      state.value.listCityStatus = ListCityStatus.empty;
+    }
     state.value.weather!.remove(city);
     state.refresh();
     update();
   }
-
-  ////////////////////////////
 
   Future<DailyWeatherModel> getLocationDailyWeather(
       {String? lat, String? lon}) async {

@@ -211,7 +211,7 @@ class Main {
 
   Main.fromJson(dynamic json) {
     _temp = json['temp'];
-    _feelsLike = json['feels_like'];
+    _feelsLike = json['feels_like'].toDouble();
     _tempMin = json['temp_min'];
     _tempMax = json['temp_max'];
     _pressure = json['pressure'];
